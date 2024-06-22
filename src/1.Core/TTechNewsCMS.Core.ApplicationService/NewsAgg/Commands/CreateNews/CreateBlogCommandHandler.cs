@@ -24,7 +24,7 @@ namespace NewCms.Core.ApplicationService.NewsAgg.Commands.CreateNews
             News blog = new(request.BusunessId, request.Title, request.Description, request.Body,
                 request.KeywordsId.Select(c => new NewsKeyword
                 {
-                    BusinessId = BusinessId.FromGuid(c)
+                    KeywordBusinessId = BusinessId.FromGuid(c)
                 }).ToList());
             _newsCommandRepository.Insert(blog);
             try

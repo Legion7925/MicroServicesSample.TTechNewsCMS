@@ -12,8 +12,8 @@ using NewCms.Infra.Data.Sql.Commands.Common;
 namespace TTechNewsCMS.Infra.Data.Sql.Commands.Migrations
 {
     [DbContext(typeof(NewCmsCommandDbContext))]
-    [Migration("20240621102203_init")]
-    partial class init
+    [Migration("20240622102753_keyword")]
+    partial class keyword
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,9 @@ namespace TTechNewsCMS.Infra.Data.Sql.Commands.Migrations
 
                     b.Property<DateTime?>("CreatedDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("KeywordBusinessId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedByUserId")
                         .HasMaxLength(50)

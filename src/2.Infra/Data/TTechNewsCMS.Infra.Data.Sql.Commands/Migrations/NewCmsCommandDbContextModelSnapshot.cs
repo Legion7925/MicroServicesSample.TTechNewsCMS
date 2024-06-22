@@ -82,6 +82,9 @@ namespace TTechNewsCMS.Infra.Data.Sql.Commands.Migrations
                     b.Property<DateTime?>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("KeywordBusinessId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ModifiedByUserId")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");

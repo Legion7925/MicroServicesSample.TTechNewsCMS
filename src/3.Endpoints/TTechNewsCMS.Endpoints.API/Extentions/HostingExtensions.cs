@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NewCms.Infra.Data.Sql.Commands.Common;
 using NewCms.Infra.Data.Sql.Queries.Common;
 using Serilog;
+using Steeltoe.Discovery.Client;
 using Zamin.EndPoints.Web.Extensions.ModelBinding;
 using Zamin.Extensions.DependencyInjection;
 using Zamin.Extensions.Events.Outbox.Dal.EF.Interceptors;
@@ -15,7 +16,7 @@ public static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         IConfiguration configuration = builder.Configuration;
-
+        builder.Services.AddDiscoveryClient();
         builder.Services.AddZaminParrotTranslator(c =>
         {
             c.ConnectionString = configuration.GetConnectionString("CommandDb_ConnectionString");
@@ -89,7 +90,7 @@ public static class HostingExtensions
             builder.AllowAnyMethod();
         });
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         //app.Services.ReceiveEventFromRabbitMqMessageBus(new KeyValuePair<string, string>("MiniAggregateName", "AggregateNameCreated"));
 

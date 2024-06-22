@@ -5,5 +5,5 @@ namespace TTechNewsCMS.Core.Domain.NewsAgg.Entities;
 
 public class NewsKeyword : Entity
 {
-    public BusinessId BusinessId { get; set; }
+    public BusinessId KeywordBusinessId { get; set; }
 }

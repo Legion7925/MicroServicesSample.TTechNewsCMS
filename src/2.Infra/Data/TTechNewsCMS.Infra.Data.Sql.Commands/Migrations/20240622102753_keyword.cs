@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TTechNewsCMS.Infra.Data.Sql.Commands.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class keyword : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,12 +65,13 @@ namespace TTechNewsCMS.Infra.Data.Sql.Commands.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KeywordBusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedByUserId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedByUserId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    NewsId = table.Column<long>(type: "bigint", nullable: true)
+                    NewsId = table.Column<long>(type: "bigint", nullable: true),
+                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
