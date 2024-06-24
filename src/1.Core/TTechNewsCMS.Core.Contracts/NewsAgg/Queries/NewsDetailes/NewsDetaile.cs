@@ -15,7 +15,14 @@ public sealed class NewsDetaileResult
     public string Title { get; set; }
     public string Description { get; set; }
     public string Body { get; set; }
-    public List<Guid> Keywords { get; set; }
+    public List<KeywordResult> Keywords { get; set; }
     public DateTime InsertDate { get; set; }
 
+}
+
+public class KeywordResult
+{
+    public string KeywordId { get; set; }
+
+    public string KeywordTitle { get; set; }
 }

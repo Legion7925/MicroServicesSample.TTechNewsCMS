@@ -42,14 +42,19 @@ public class NewsQueryRepository : BaseQueryRepository<NewCmsQueryDbContext>, IN
 
     public NewsDetaileResult Query(NewsDetaile newsDetaile)
     {
-        return _dbContext.News.Include(c => c.NewsKeywords).Where(c => c.Id == newsDetaile.NewsId).Select(c => new NewsDetaileResult
+        return _dbContext.News.Include(c => c.NewsKeywords).ThenInclude(k=> k.Keyword)
+            .Where(c => c.Id == newsDetaile.NewsId).Select(c => new NewsDetaileResult
         {
             Body = c.Body,
             Id = c.Id,
             Description = c.Description,
             InsertDate = c.CreatedDateTime,
             Title = c.Title,
-            Keywords = c.NewsKeywords.Select(c => c.KeywordBusinessId).ToList(),
+            Keywords = c.NewsKeywords.Select(c => new KeywordResult
+            {
+                KeywordId = c.Keyword.KeywordBusinessId.ToString(),
+                KeywordTitle = c.Keyword.KeywordTitle
+            }).ToList(),
         }).FirstOrDefault();
     }
 }

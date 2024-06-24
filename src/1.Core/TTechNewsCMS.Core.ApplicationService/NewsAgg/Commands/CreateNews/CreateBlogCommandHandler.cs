@@ -21,12 +21,12 @@ namespace NewCms.Core.ApplicationService.NewsAgg.Commands.CreateNews
 
         public override async Task<CommandResult> Handle(CreateNewsCommand request)
         {
-            News blog = new(request.BusunessId, request.Title, request.Description, request.Body,
+            News news = new(request.BusunessId, request.Title, request.Description, request.Body,
                 request.KeywordsId.Select(c => new NewsKeyword
                 {
                     KeywordBusinessId = BusinessId.FromGuid(c)
                 }).ToList());
-            _newsCommandRepository.Insert(blog);
+            _newsCommandRepository.Insert(news);
             try
             {
                 await _newsCommandRepository.CommitAsync();

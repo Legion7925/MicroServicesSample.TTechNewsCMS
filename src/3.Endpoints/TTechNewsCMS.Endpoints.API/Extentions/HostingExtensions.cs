@@ -4,6 +4,7 @@ using NewCms.Infra.Data.Sql.Commands.Common;
 using NewCms.Infra.Data.Sql.Queries.Common;
 using Serilog;
 using Steeltoe.Discovery.Client;
+using TTechNewsCMS.Endpoints.API.BackgroundTask;
 using Zamin.EndPoints.Web.Extensions.ModelBinding;
 using Zamin.Extensions.DependencyInjection;
 using Zamin.Extensions.Events.Outbox.Dal.EF.Interceptors;
@@ -61,7 +62,7 @@ public static class HostingExtensions
         builder.Services.AddZaminApiCore("Zamin", "MiniBlog");
 
         builder.Services.AddEndpointsApiExplorer();
-
+        builder.Services.AddHostedService<KeywordCreatedReceiver>();
         builder.Services.AddSwaggerGen();
         return builder.Build();
     }
