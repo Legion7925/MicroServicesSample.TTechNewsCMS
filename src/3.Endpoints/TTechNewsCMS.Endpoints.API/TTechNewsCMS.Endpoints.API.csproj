@@ -37,6 +37,7 @@
 		<PackageReference Include="Zamin.Utilities.SoftwarePartDetector" Version="8.0.0-beta.1" />
 		<PackageReference Include="Zamin.Utilities.SerilogRegistration" Version="8.0.0-beta.1" />
 		<PackageReference Include="Zamin.Utilities.OpenTelemetryRegistration" Version="8.0.0-beta.2" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

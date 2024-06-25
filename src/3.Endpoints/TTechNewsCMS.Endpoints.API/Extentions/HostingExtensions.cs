@@ -64,6 +64,7 @@ public static class HostingExtensions
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddHostedService<KeywordCreatedReceiver>();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddHealthChecks().AddDbContextCheck<NewCmsCommandDbContext>();
         return builder.Build();
     }
 
@@ -103,6 +104,12 @@ public static class HostingExtensions
         //    controllerBuilder.RequireAuthorization();
 
         //app.Services.GetService<SoftwarePartDetectorService>()?.Run();
+
+        app.MapHealthChecks("/health/live" , new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+        {
+            Predicate = _ => false
+        });
+        app.MapHealthChecks("/health/ready");
 
         return app;
     }
