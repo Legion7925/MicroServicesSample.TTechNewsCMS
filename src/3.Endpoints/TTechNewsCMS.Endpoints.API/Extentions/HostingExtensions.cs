@@ -27,6 +27,24 @@ public static class HostingExtensions
             c.ReloadDataIntervalInMinuts = 1;
         });
 
+        builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", c =>
+        {
+            c.Authority = "https://localhost:5001/";
+            c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            {
+                ValidateAudience = false,
+            };
+        });
+
+        builder.Services.AddAuthorization(c =>
+        {
+            c.AddPolicy("NewsCmsPolicy", p =>
+            {
+                p.RequireAuthenticatedUser();
+                p.RequireClaim("scope", "newscms");
+            });
+        });
+
         builder.Services.AddZaminWebUserInfoService(c =>
         {
             c.DefaultUserId = "1";
@@ -94,16 +112,10 @@ public static class HostingExtensions
 
         //app.UseHttpsRedirection();
 
-        //app.Services.ReceiveEventFromRabbitMqMessageBus(new KeyValuePair<string, string>("MiniAggregateName", "AggregateNameCreated"));
+        app.UseAuthentication();
+        app.UseAuthorization();
 
-        //var useIdentityServer = app.UseIdentityServer("OAuth");
-
-        var controllerBuilder = app.MapControllers();
-
-        //if (useIdentityServer)
-        //    controllerBuilder.RequireAuthorization();
-
-        //app.Services.GetService<SoftwarePartDetectorService>()?.Run();
+        var controllerBuilder = app.MapControllers().RequireAuthorization("NewsCmsPolicy");
 
         app.MapHealthChecks("/health/live" , new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
         {
